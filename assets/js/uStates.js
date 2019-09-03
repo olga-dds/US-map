@@ -151,32 +151,8 @@ var offersCoordinates = [
 ]
 
  var offersData = []
-    offers.forEach(item=>{
-	  var offerItems = item[Object.keys(item)]
-	  var offerMatch = offersCoordinates.find(e=>{
-		return  Object.keys(item)[0]===Object.keys(e)[0]
-		});
-		var stateMatch = null;
 
-	  offerItems.forEach(e=>{
-		stateMatch = offerMatch[Object.keys(offerMatch)].find(d=>{
-			return e.state === d.state
-		})
-   
-		if (stateMatch){
-		stateMatch.value = e.value
-		}else{
-		offerMatch[Object.keys(offerMatch)].push(e)
-	  }
-     
-   })
-
-	offersData.push(offerMatch)
-	console.log("offer match",offerMatch)
-
-})
-
-console.log(offersData)
+manipulateOffersData()
 
 //LEGEND DATA
 
@@ -198,7 +174,6 @@ console.log(offersData)
 
   uStates.draw("#statesvg", uStatePaths);
 	this.uStates=uStates;
-	console.log(this.uStates)
 
  //CREATE THE US-MAP SVG
 	function createSvgGroup(id,data){
@@ -267,6 +242,32 @@ console.log(offersData)
 			x: labelCoords.x,
 			y: labelCoords.y + 20
 		}
+	}
+
+	function manipulateOffersData(){
+    offers.forEach(item=>{
+			var offerItems = item[Object.keys(item)]
+			var offerMatch = offersCoordinates.find(e=>{
+			return  Object.keys(item)[0]===Object.keys(e)[0]
+			});
+			var stateMatch = null;
+	
+			offerItems.forEach(e=>{
+			stateMatch = offerMatch[Object.keys(offerMatch)].find(d=>{
+				return e.state === d.state
+			})
+		 
+			if (stateMatch){
+			stateMatch.value = e.value
+			}else{
+			offerMatch[Object.keys(offerMatch)].push(e)
+			}
+			 
+		 })
+	
+		offersData.push(offerMatch)
+	
+	})
 	}
 })();
 
