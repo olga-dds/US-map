@@ -273,12 +273,12 @@ init()
 	function loadJSON(callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', '.api/coordinates-data.json', true);
+    xobj.open('GET', 'assets/api/coordinates-data.json');
     // Replace 'my_data' with the path to your file
     xobj.onreadystatechange = function() {
-        if (xobj.readyState === 4 && xobj.status === "200") {
-            // Required use of an anonymous callback 
-            // as .open() will NOT return a value but simply returns undefined in asynchronous mode
+			console.log(xobj);
+        if (xobj.readyState === 4 && xobj.status === 200) {
+           
             callback(xobj.responseText);
         }
     };
@@ -286,9 +286,11 @@ init()
 }
 
 function init() {
+	console.log("gfsgjfsjd")
     loadJSON(function(response) {
         // Parse JSON string into object
 				var actual_JSON = JSON.parse(response);
+				console.log("gfgsfgsfgj")
 				console.log("coordinates-data",actual_JSON)
     });
 }
