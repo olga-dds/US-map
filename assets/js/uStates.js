@@ -152,7 +152,8 @@ var offersCoordinates = [
 
  var offersData = []
 manipulateOffersData()
-init()
+//init()
+getDataCoordinates()
 
 //LEGEND DATA
 
@@ -276,7 +277,6 @@ init()
     xobj.open('GET', 'assets/api/coordinates-data.json');
     // Replace 'my_data' with the path to your file
     xobj.onreadystatechange = function() {
-			console.log(xobj);
         if (xobj.readyState === 4 && xobj.status === 200) {
            
             callback(xobj.responseText);
@@ -293,6 +293,16 @@ function init() {
 				console.log("gfgsfgsfgj")
 				console.log("coordinates-data",actual_JSON)
     });
+}
+function getDataCoordinates(){
+	return fetch('assets/api/coordinates-data.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    console.log(myJson);
+	})
+ .catch(error => console.error('Error:', error));
 }
 })();
 
