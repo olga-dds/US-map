@@ -152,7 +152,7 @@ var offersCoordinates = [
 
  var offersData = []
 manipulateOffersData()
-init()
+// init()
 
 //LEGEND DATA
 
