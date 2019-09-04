@@ -152,8 +152,14 @@ var offersCoordinates = [
 
  var offersData = []
 manipulateOffersData()
-//init()
-getDataCoordinates()
+Promise.all([getDataCoordinates('https://demo6049681.mockable.io/us-map-data'),getDataCoordinates('https://demo6049681.mockable.io/offers-data'),getDataCoordinates('assets/api/coordinates-data.json')])
+.then((value) => {
+	
+	console.log(value)
+
+})
+
+
 
 //LEGEND DATA
 
@@ -271,38 +277,18 @@ getDataCoordinates()
 	})
 	}
 
-	function loadJSON(callback) {
-    var xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'assets/api/coordinates-data.json');
-    // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function() {
-        if (xobj.readyState === 4 && xobj.status === 200) {
-           
-            callback(xobj.responseText);
-        }
-    };
-    xobj.send(null);
-}
 
-function init() {
-	console.log("gfsgjfsjd")
-    loadJSON(function(response) {
-        // Parse JSON string into object
-				var actual_JSON = JSON.parse(response);
-				console.log("gfgsfgsfgj")
-				console.log("coordinates-data",actual_JSON)
-    });
-}
-function getDataCoordinates(){
-	return fetch('assets/api/coordinates-data.json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    console.log(myJson);
-	})
- .catch(error => console.error('Error:', error));
+function getDataCoordinates(url,data){
+   return fetch(url)
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(result) {
+    return result
+		})
+	 .catch(error => console.error('Error:', error));
+
+
 }
 })();
 
