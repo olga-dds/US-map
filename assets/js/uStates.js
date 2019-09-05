@@ -6,13 +6,16 @@
 	offersData = [];
 	legend = ["zillow offers", "opendoor", "offerpad", "knock"]
 	urlObj = {
-		mapdata: "https://demo6049681.mockable.io/us-map-data",
-		offersdata: "https://demo6049681.mockable.io/offers-data",
+		mapdata: "assets/api/us-map-data.json",
+		offersdata: "assets/api/offers-data.json",
 		coordinatesdata: "assets/api/coordinates-data.json"
 	}
 	uStates = {};
+	this.uStates = uStates;
+	
 
-	// DECLARE THE DRAW PROPERTY 
+	initMap()
+
 	uStates.draw = function (id, data) {
 		createSvgGroup(id, data);
 		addOffersLabels(id, offersData[1].opendoor, "opendoor", 12.5, "value-opendoor");
@@ -22,22 +25,12 @@
 		creatLegend(id)
 	}
 
-
-	Promise.all([getMapData(urlObj.mapdata), getMapData(urlObj.offersdata), getMapData(urlObj.coordinatesdata)])
-		.then((value) => {
-			uStatePaths = value[0];
-			offers = value[1];
-			offersCoordinates = value[2];
-		})
-		.then(() => {
+	function initMap(){
+		getMapData(urlObj)
+		.then(function(){
 			manipulateOffersData()
 			uStates.draw("#statesvg", uStatePaths);
 		})
-
-	this.uStates = uStates;
-	
-	function initMap(){
-		
 	}
 	function createSvgGroup(id, data) {
 
@@ -127,10 +120,12 @@
 			})
 
 			offersData.push(offerMatch)
+			
 
 		})
 	}
-	function getMapData(url) {
+
+	function getMarkerData(url){
 		return fetch(url)
 			.then(function (response) {
 				return response.json();
@@ -138,6 +133,26 @@
 			.then(function (result) {
 				return result
 			})
+			.catch(error => console.error('Error:', error));
+
+	}
+	
+	function getMapData(urlObj) {
+		return fetch(urlObj.mapdata)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (result) {
+				uStatePaths = result
+			})
+			.then(function(){
+			 return	Promise.all([getMarkerData(urlObj.offersdata),getMarkerData(urlObj.coordinatesdata)])
+				.then((value) => {
+					offers = value[0];
+					offersCoordinates = value[1];
+				})
+			})
+	
 			.catch(error => console.error('Error:', error));
 
 

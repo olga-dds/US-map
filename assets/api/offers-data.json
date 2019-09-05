@@ -3,43 +3,39 @@
     "zillowoffers": [
       {
         "state": "CO",
-        "x": 350,
-        "y": 285
+        "value": 12
       },
       {
         "state": "GA",
-        "x": 730,
-        "y": 414
+        "value": 81
       },
       {
         "state": "NC",
-        "x": 810,
-        "y": 341
+        "value": 84
       },
       {
         "state": "TX",
-        "x": 528,
-        "y": 478
+        "value": 99
       },
       {
         "state": "CA",
-        "x": 152,
-        "y": 351
+        "value": 511
       },
       {
         "state": "NM",
-        "x": 352,
-        "y": 390
+        "value": 73
       },
       {
         "state": "IL",
-        "x": 595,
-        "y": 262
+        "value": 105
       },
       {
         "state": "WI",
-        "x": 612,
-        "y": 197
+        "value": 60
+      },
+      {
+        "state": "AK",
+        "value": 660
       }
     ]
   },
@@ -47,38 +43,31 @@
     "opendoor": [
       {
         "state": "FL",
-        "x": 742,
-        "y": 487
+        "value": 124
       },
       {
         "state": "OH",
-        "x": 742,
-        "y": 235
+        "value": 63
       },
       {
         "state": "MT",
-        "x": 240,
-        "y": 110
+        "value": 24
       },
       {
         "state": "CO",
-        "x": 286,
-        "y": 267
+        "value": 52
       },
       {
         "state": "NE",
-        "x": 454,
-        "y": 208
+        "value": 16
       },
       {
         "state": "MS",
-        "x": 612,
-        "y": 405
+        "value": 312
       },
       {
         "state": "OK",
-        "x": 427,
-        "y": 382
+        "value": 71
       }
     ]
   },
@@ -86,38 +75,35 @@
     "offerpad": [
       {
         "state": "TX",
-        "x": 421,
-        "y": 505
+        "value": 12
       },
       {
         "state": "AL",
-        "x": 662,
-        "y": 423
+        "value": 97
       },
       {
         "state": "NY",
-        "x": 760,
-        "y": 172
+        "value": 9
       },
       {
         "state": "WY",
-        "x": 344,
-        "y": 157
+        "value": 74
       },
       {
         "state": "AZ",
-        "x": 180,
-        "y": 360
+        "value": 157
       },
       {
         "state": "NV",
-        "x": 140,
-        "y": 200
+        "value": 25
       },
       {
         "state": "MO",
-        "x": 550,
-        "y": 333
+        "value": 37
+      },
+      {
+        "state": "HI",
+        "value": 99
       }
     ]
   },
@@ -125,43 +111,35 @@
     "knock": [
       {
         "state": "CO",
-        "x": 376,
-        "y": 305
+        "value": 10
       },
       {
         "state": "OK",
-        "x": 475,
-        "y": 341
+        "value": 55
       },
       {
         "state": "GA",
-        "x": 711,
-        "y": 375
+        "value": 51
       },
       {
         "state": "TX",
-        "x": 305,
-        "y": 426
+        "value": 12
       },
       {
         "state": "CA",
-        "x": 103,
-        "y": 307
+        "value": 214
       },
       {
         "state": "ID",
-        "x": 250,
-        "y": 159
+        "value": 44
       },
       {
         "state": "ND",
-        "x": 435,
-        "y": 110
+        "value": 23
       },
       {
         "state": "IN",
-        "x": 632,
-        "y": 222
+        "value": 95
       }
     ]
   }
