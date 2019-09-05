@@ -21,10 +21,7 @@
         "state": "CA",
         "value": 511
       },
-      {
-        "state": "NM",
-        "value": 73
-      },
+   
       {
         "state": "IL",
         "value": 105
@@ -32,11 +29,8 @@
       {
         "state": "WI",
         "value": 60
-      },
-      {
-        "state": "AK",
-        "value": 660
       }
+ 
     ]
   },
   {
@@ -100,10 +94,6 @@
       {
         "state": "MO",
         "value": 37
-      },
-      {
-        "state": "HI",
-        "value": 99
       }
     ]
   },

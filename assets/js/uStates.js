@@ -12,8 +12,6 @@
 	}
 	uStates = {};
 	this.uStates = uStates;
-	
-
 	initMap()
 
 	uStates.draw = function (id, data) {
@@ -25,12 +23,12 @@
 		creatLegend(id)
 	}
 
-	function initMap(){
+	function initMap() {
 		getMapData(urlObj)
-		.then(function(){
-			manipulateOffersData()
-			uStates.draw("#statesvg", uStatePaths);
-		})
+			.then(function () {
+				manipulateOffersData()
+				uStates.draw("#statesvg", uStatePaths);
+			})
 	}
 	function createSvgGroup(id, data) {
 
@@ -104,28 +102,34 @@
 			var offerMatch = offersCoordinates.find(e => {
 				return Object.keys(item)[0] === Object.keys(e)[0]
 			});
+			var offerMatchArr = offerMatch[Object.keys(offerMatch)]
 			var stateMatch = null;
 
 			offerItems.forEach(e => {
-				stateMatch = offerMatch[Object.keys(offerMatch)].find(d => {
+				stateMatch = offerMatchArr.find(d => {
 					return e.state === d.state
 				})
 
 				if (stateMatch) {
 					stateMatch.value = e.value
 				} else {
-					offerMatch[Object.keys(offerMatch)].push(e)
+					offerMatchArr.push(e)
 				}
 
 			})
-
+			offerMatchArr.forEach(d => {
+				if (!d.hasOwnProperty('value')) {
+					var index = offerMatchArr.indexOf(d)
+					offerMatchArr.splice(index, 1)
+				}
+			})
 			offersData.push(offerMatch)
-			
+
 
 		})
 	}
 
-	function getMarkerData(url){
+	function getMarkerData(url) {
 		return fetch(url)
 			.then(function (response) {
 				return response.json();
@@ -136,7 +140,7 @@
 			.catch(error => console.error('Error:', error));
 
 	}
-	
+
 	function getMapData(urlObj) {
 		return fetch(urlObj.mapdata)
 			.then(function (response) {
@@ -145,17 +149,15 @@
 			.then(function (result) {
 				uStatePaths = result
 			})
-			.then(function(){
-			 return	Promise.all([getMarkerData(urlObj.offersdata),getMarkerData(urlObj.coordinatesdata)])
-				.then((value) => {
-					offers = value[0];
-					offersCoordinates = value[1];
-				})
+			.then(function () {
+				return Promise.all([getMarkerData(urlObj.offersdata), getMarkerData(urlObj.coordinatesdata)])
+					.then((value) => {
+						offers = value[0];
+						offersCoordinates = value[1];
+					})
 			})
-	
+
 			.catch(error => console.error('Error:', error));
-
-
 	}
 })();
 
