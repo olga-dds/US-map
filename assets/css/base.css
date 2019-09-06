@@ -2313,7 +2313,9 @@ text{
 .legend-labels{
 	fill: white
 }
-
+.label-state{
+	pointer-events: none;
+}
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 	#statesvg{
 		width: 940px;

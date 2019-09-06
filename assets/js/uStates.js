@@ -16,10 +16,11 @@
 
 	uStates.draw = function (id, data) {
 		createSvgGroup(id, data);
-		addOffersLabels(id, offersData[1].opendoor, "opendoor", 12.5, "value-opendoor");
-		addOffersLabels(id, offersData[0].zillowoffers, "zillowoffers", 13, "value-zillowoffers");
-		addOffersLabels(id, offersData[3].knock, "knock", 12, "value-knock");
-		addOffersLabels(id, offersData[2].offerpad, "offerpad", 11, "value-offerpad");
+		addStatelabels(id)
+		addOffersLabels(id, offersData[1].opendoor, "opendoor", "value-opendoor");
+		addOffersLabels(id, offersData[0].zillowoffers, "zillowoffers", "value-zillowoffers");
+		addOffersLabels(id, offersData[3].knock, "knock", "value-knock");
+		addOffersLabels(id, offersData[2].offerpad, "offerpad", "value-offerpad");
 		creatLegend(id)
 	}
 
@@ -31,28 +32,29 @@
 			})
 	}
 	function createSvgGroup(id, data) {
-
 		d3.select(id).selectAll("g")
 			.data(data).enter().append("g")
 			.append("path")
 			.attr("class", "state")
 			.attr("d", function (d) { return d.d; })
 			.style("fill", "#ebeff2")
+
+	}
+	function addStatelabels(id) {
 		d3.select(id).selectAll("g").append("svg:text").text(function (d) { return d.id })
-			.attr("class", function (d) { return "label-" + d.id })
+			.attr("class", function (d) { return "label-state label-" + d.id })
 			.attr("x", function (d, i) { return d.c.x })
 			.attr("y", function (d, i) { return d.c.y })
 			.attr("text-anchor", "middle")
 	}
-
-	function addOffersLabels(id, data, labelClass, r, valuesLabels) {
+	function addOffersLabels(id, data, labelClass, valuesLabels) {
 		d3.select(id).selectAll(labelClass)
 			.data(data).enter()
 			.append("circle")
 			.attr("class", labelClass)
 			.attr("cx", function (d, i) { return d.x || getOfferLabelCoordsByStateLabel(d.state).x; })
 			.attr("cy", function (d, i) { return d.y || getOfferLabelCoordsByStateLabel(d.state).y })
-			.attr("r", function (d, i) { return r })
+			.attr("r", function (d, i) { return labelRadius(d.value)})
 
 		d3.select(id).selectAll(valuesLabels)
 			.data(data).enter()
@@ -62,9 +64,7 @@
 			.attr("x", function (d, i) { return d.x || getOfferLabelCoordsByStateLabel(d.state).x })
 			.attr("y", function (d, i) { return 4 + (d.y || getOfferLabelCoordsByStateLabel(d.state).y) })
 			.attr("text-anchor", "middle")
-
 	}
-
 	function creatLegend(id) {
 		d3.select(id).selectAll("legend")
 			.data(legend).enter().append("g")
@@ -83,9 +83,7 @@
 			.attr("x", function (d, i) { return 715 })
 			.attr("y", function (d, i) { return 34 + 15 * i })
 	}
-
 	function getOfferLabelCoordsByStateLabel(state) {
-
 		var labelCoords = uStatePaths.find(function (uStatePath) {
 			return uStatePath.id === state;
 		})['c'];
@@ -95,7 +93,6 @@
 			y: labelCoords.y + 20
 		}
 	}
-
 	function manipulateOffersData() {
 		offers.forEach(item => {
 			var offerItems = item[Object.keys(item)]
@@ -124,11 +121,8 @@
 				}
 			})
 			offersData.push(offerMatch)
-
-
 		})
 	}
-
 	function getMarkerData(url) {
 		return fetch(url)
 			.then(function (response) {
@@ -138,9 +132,7 @@
 				return result
 			})
 			.catch(error => console.error('Error:', error));
-
 	}
-
 	function getMapData(urlObj) {
 		return fetch(urlObj.mapdata)
 			.then(function (response) {
@@ -158,6 +150,22 @@
 			})
 
 			.catch(error => console.error('Error:', error));
+	}
+	function labelRadius(value) {
+		switch (true) {
+			case (value > 1 && value <= 9):
+				r = 8
+				break;
+			case (value >= 10 && value <= 99):
+				r = 11
+				break;
+			case (value >= 100):
+				r = 13
+				break;
+			default:
+				r = 14
+		}
+		return r
 	}
 })();
 
