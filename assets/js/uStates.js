@@ -54,7 +54,7 @@
 			.attr("class", labelClass)
 			.attr("cx", function (d, i) { return d.x || getOfferLabelCoordsByStateLabel(d.state).x; })
 			.attr("cy", function (d, i) { return d.y || getOfferLabelCoordsByStateLabel(d.state).y })
-			.attr("r", function (d, i) { return labelRadius(d.value)})
+			.attr("r", function (d, i) { return labelRadius(d.value) })
 
 		d3.select(id).selectAll(valuesLabels)
 			.data(data).enter()
@@ -62,7 +62,7 @@
 			.text(function (d) { return d.value })
 			.attr("class", valuesLabels)
 			.attr("x", function (d, i) { return d.x || getOfferLabelCoordsByStateLabel(d.state).x })
-			.attr("y", function (d, i) { return 4 + (d.y || getOfferLabelCoordsByStateLabel(d.state).y) })
+			.attr("y", function (d, i) { return 3.5 + (d.y || getOfferLabelCoordsByStateLabel(d.state).y) })
 			.attr("text-anchor", "middle")
 	}
 	function creatLegend(id) {
@@ -95,12 +95,12 @@
 	}
 	function manipulateOffersData() {
 		offers.forEach(item => {
-			var offerItems = item[Object.keys(item)]
-			var offerMatch = offersCoordinates.find(e => {
-				return Object.keys(item)[0] === Object.keys(e)[0]
-			});
-			var offerMatchArr = offerMatch[Object.keys(offerMatch)]
-			var stateMatch = null;
+			var offerItems = item[Object.keys(item)],
+				offerMatch = offersCoordinates.find(e => {
+					return Object.keys(item)[0] === Object.keys(e)[0]
+				}),
+				offerMatchArr = offerMatch[Object.keys(offerMatch)],
+				stateMatch = null;
 
 			offerItems.forEach(e => {
 				stateMatch = offerMatchArr.find(d => {
@@ -134,6 +134,7 @@
 			.catch(error => console.error('Error:', error));
 	}
 	function getMapData(urlObj) {
+		
 		return fetch(urlObj.mapdata)
 			.then(function (response) {
 				return response.json();
@@ -157,7 +158,7 @@
 				r = 8
 				break;
 			case (value >= 10 && value <= 99):
-				r = 11
+				r = 10
 				break;
 			case (value >= 100):
 				r = 13
@@ -167,6 +168,8 @@
 		}
 		return r
 	}
+	//window.fetch delete
+	console.log("fetch" in window)
 })();
 
 
