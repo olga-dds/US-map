@@ -1,3 +1,5 @@
+
+
 (function () {
 	//VARIABLE DECLARATION
 	var uStatePaths, offers, offersCoordinates, offersData, legend, urlObj, uStates;
@@ -109,16 +111,17 @@
 		}
 	}
 	function manipulateOffersData() {
-		offers.forEach(item => {
+		offers.forEach(function(item){
+			console.log(typeof offersCoordinates, offersCoordinates)
 			var offerItems = item[Object.keys(item)],
-				offerMatch = offersCoordinates.find(e => {
+				offerMatch = offersCoordinates.find(function(e) {
 					return Object.keys(item)[0] === Object.keys(e)[0]
 				}),
 				offerMatchArr = offerMatch[Object.keys(offerMatch)],
 				stateMatch = null;
 
-			offerItems.forEach(e => {
-				stateMatch = offerMatchArr.find(d => {
+			offerItems.forEach(function(e) {
+				stateMatch = offerMatchArr.find(function(d){
 					return e.state === d.state
 				})
 
@@ -129,7 +132,7 @@
 				}
 
 			})
-			offerMatchArr.forEach(d => {
+			offerMatchArr.forEach(function(d) {
 				if (!d.hasOwnProperty('value')) {
 					var index = offerMatchArr.indexOf(d)
 					offerMatchArr.splice(index, 1)
@@ -146,7 +149,7 @@
 			.then(function (result) {
 				return result
 			})
-			.catch(error => console.error('Error:', error));
+			.catch(function(error){console.error('Error:', error)});
 	}
 	function getMapData(urlObj) {
 		
@@ -158,16 +161,21 @@
 				uStatePaths = result
 			})
 			.then(function () {
-				return Promise.all([getMarkerData(urlObj.offersdata), getMarkerData(urlObj.coordinatesdata)])
-					.then((value) => {
-						offers = value[0];
-						offersCoordinates = value[1];
+			return getMarkerData(urlObj.offersdata)
+					.then(function(value) {
+						offers = value;
+					})
+			})
+			.then(function () {
+				return getMarkerData(urlObj.coordinatesdata)
+					.then(function(value) {
+						offersCoordinates = value;
 					})
 			})
 
-			.catch(error => console.error('Error:', error));
+			.catch(function(error){console.error('Error:', error)});
 	}
-	function labelRadius(value) {
+	function labelRadius(value){
 		switch (true) {
 			case (value > 1 && value <= 9):
 				r = 7
