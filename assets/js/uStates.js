@@ -1,9 +1,6 @@
-
-
 (function () {
 	//VARIABLE DECLARATION
 	var uStatePaths, offers, offersCoordinates, offersData, legend, urlObj, uStates;
-  console.log("fsdfsdf")
 	//VARIABLE INSTANTIATION
 	offersData = [];
 	legend = ["zillow offers", "opendoor", "offerpad", "knock"]
@@ -14,23 +11,7 @@
 	}
 	uStates = {};
 	this.uStates = uStates;
-	console.log("fetch" in window)
-	fetch('assets/api/us-map-data.json')
-  .then(function(response) {
-    return response.json()
-  }).then(function(json) {
-		console.log('parsed json', json[0].id)
-		alert("Test from fetch")
-		$("#test").text(json[0].id)
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
-  })
-//	delete window.fetch;
-//	delete window.Promise;
 	initMap()
-
-
-
 	uStates.draw = function (id, data) {
 		createSvgGroup(id, data);
 		addStatelabels(id)
@@ -111,17 +92,16 @@
 		}
 	}
 	function manipulateOffersData() {
-		offers.forEach(function(item){
-			console.log(typeof offersCoordinates, offersCoordinates)
+		offers.forEach(function (item) {
 			var offerItems = item[Object.keys(item)],
-				offerMatch = offersCoordinates.find(function(e) {
+				offerMatch = offersCoordinates.find(function (e) {
 					return Object.keys(item)[0] === Object.keys(e)[0]
 				}),
 				offerMatchArr = offerMatch[Object.keys(offerMatch)],
 				stateMatch = null;
 
-			offerItems.forEach(function(e) {
-				stateMatch = offerMatchArr.find(function(d){
+			offerItems.forEach(function (e) {
+				stateMatch = offerMatchArr.find(function (d) {
 					return e.state === d.state
 				})
 
@@ -132,7 +112,7 @@
 				}
 
 			})
-			offerMatchArr.forEach(function(d) {
+			offerMatchArr.forEach(function (d) {
 				if (!d.hasOwnProperty('value')) {
 					var index = offerMatchArr.indexOf(d)
 					offerMatchArr.splice(index, 1)
@@ -149,10 +129,10 @@
 			.then(function (result) {
 				return result
 			})
-			.catch(function(error){console.error('Error:', error)});
+			.catch(function (error) { console.error('Error:', error) });
 	}
 	function getMapData(urlObj) {
-		
+
 		return fetch(urlObj.mapdata)
 			.then(function (response) {
 				return response.json();
@@ -161,21 +141,15 @@
 				uStatePaths = result
 			})
 			.then(function () {
-			return getMarkerData(urlObj.offersdata)
-					.then(function(value) {
-						offers = value;
+				return Promise.all([getMarkerData(urlObj.offersdata), getMarkerData(urlObj.coordinatesdata)])
+					.then(function (value) {
+						offers = value[0];
+						offersCoordinates = value[1];
 					})
 			})
-			.then(function () {
-				return getMarkerData(urlObj.coordinatesdata)
-					.then(function(value) {
-						offersCoordinates = value;
-					})
-			})
-
-			.catch(function(error){console.error('Error:', error)});
+			.catch(function (error) { console.error('Error:', error) });
 	}
-	function labelRadius(value){
+	function labelRadius(value) {
 		switch (true) {
 			case (value > 1 && value <= 9):
 				r = 7
@@ -191,8 +165,6 @@
 		}
 		return r
 	}
-	//window.fetch delete
-	console.log("fetch" in window)
 })();
 
 
