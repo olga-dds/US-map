@@ -12,6 +12,10 @@
 	}
 	uStates = {};
 	this.uStates = uStates;
+	console.log("fetch" in window)
+
+//	delete window.fetch;
+//	delete window.Promise;
 	initMap()
 
 	uStates.draw = function (id, data) {
@@ -155,16 +159,16 @@
 	function labelRadius(value) {
 		switch (true) {
 			case (value > 1 && value <= 9):
-				r = 8
+				r = 7
 				break;
 			case (value >= 10 && value <= 99):
 				r = 10
 				break;
 			case (value >= 100):
-				r = 13
+				r = 12
 				break;
 			default:
-				r = 14
+				r = 13
 		}
 		return r
 	}
