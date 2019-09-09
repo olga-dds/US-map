@@ -1,7 +1,7 @@
 (function () {
 	//VARIABLE DECLARATION
 	var uStatePaths, offers, offersCoordinates, offersData, legend, urlObj, uStates;
-
+  console.log("fsdfsdf")
 	//VARIABLE INSTANTIATION
 	offersData = [];
 	legend = ["zillow offers", "opendoor", "offerpad", "knock"]
@@ -13,10 +13,21 @@
 	uStates = {};
 	this.uStates = uStates;
 	console.log("fetch" in window)
-
+	fetch('assets/api/us-map-data.json')
+  .then(function(response) {
+    return response.json()
+  }).then(function(json) {
+		console.log('parsed json', json[0].id)
+		alert("Test from fetch")
+		$("#test").text(json[0].id)
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
+  })
 //	delete window.fetch;
 //	delete window.Promise;
 	initMap()
+
+
 
 	uStates.draw = function (id, data) {
 		createSvgGroup(id, data);
